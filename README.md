@@ -36,9 +36,13 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ----------------------------------------------------------------
+## Installed Packages
 
 ```zsh
-npm i @clerk/nextjs prisma
+npm i @clerk/nextjs @hello-pangea/dnd @hookform/resolvers @mux/mux-node @mux/mux-player-react @radix-ui/react-alert-dialog @radix-ui/react-checkbox @radix-ui/react-dropdown-menu @radix-ui/react-label @radix-ui/react-popover @radix-ui/react-progress @radix-ui/react-separator @radix-ui/react-slot @tanstack/react-table axios cmdk query-string react-confetti react-dropzone react-hook-form react-hot-toast react-icons react-quill recharts stripe @uploadthing/react zod zustand
 ```
 
+## Shadcn UI components
+```
 npx shadcn-ui@latest add sheet
+```
