@@ -46,3 +46,4 @@ npm i @clerk/nextjs @hello-pangea/dnd @hookform/resolvers @mux/mux-node @mux/mux
 ```
 npx shadcn-ui@latest add sheet
 ```
+ 
