@@ -44,6 +44,6 @@ npm i @clerk/nextjs @hello-pangea/dnd @hookform/resolvers @mux/mux-node @mux/mux
 
 ## Shadcn UI components
 ```
-npx shadcn-ui@latest add sheet
+npx shadcn-ui@latest add sheet form
 ```
  
