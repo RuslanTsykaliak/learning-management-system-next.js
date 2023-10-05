@@ -22,26 +22,29 @@ import { cn } from '@/lib/utils'
 import { Editor } from '@/components/editor'
 import { Preview } from '@/components/preview'
 
+// Define an interface for the ChapterDescriptionFormProps.
 interface ChapterDescriptionFormProps {
   initialData: Chapter;
   courseId: string;
   chapterId: string;
 }
 
+// Define a schema for form validation.
 const formSchema = z.object({
   description: z.string().min(1),
 })
 
+// Define the ChapterDescriptionForm component.
 export const ChapterDescriptionForm = ({
   initialData,
   courseId,
-  chapterId
+  chapterId,
 }: ChapterDescriptionFormProps) => {
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false); // State for toggling edit mode.
 
-  const toggleEdit = () => setIsEditing((current) => !current)
+  const toggleEdit = () => setIsEditing((current) => !current); // Function to toggle edit mode.
 
-  const router = useRouter()
+  const router = useRouter(); // Get the Next.js router.
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,16 +53,17 @@ export const ChapterDescriptionForm = ({
     },
   })
 
-  const { isSubmitting, isValid } = form.formState
+  const { isSubmitting, isValid } = form.formState; // Get form state properties.
 
+  // Function to handle form submission.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values)
-      toast.success('Chapters updated successfully')
-      toggleEdit()
-      router.refresh()
+      await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values); // Send a PATCH request to update the chapter description.
+      toast.success('Chapter updated successfully'); // Display a success toast.
+      toggleEdit(); // Exit edit mode.
+      router.refresh(); // Refresh the router to reflect changes.
     } catch {
-      toast.error('Something went wrong')
+      toast.error('Something went wrong'); // Display an error toast if an error occurs.
     }
   }
 

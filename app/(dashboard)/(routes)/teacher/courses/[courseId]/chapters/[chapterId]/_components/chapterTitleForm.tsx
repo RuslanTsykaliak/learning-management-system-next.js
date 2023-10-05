@@ -19,6 +19,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
+// Define an interface for the ChapterTitleFormProps.
 interface ChapterTitleFormProps {
   initialData: {
     title: string;
@@ -27,36 +28,39 @@ interface ChapterTitleFormProps {
   chapterId: string;
 }
 
+// Define a schema for form validation.
 const formSchema = z.object({
   title: z.string().min(1),
 })
 
+// Define the ChapterTitleForm component.
 export const ChapterTitleForm = ({
   initialData,
   courseId,
   chapterId,
 }: ChapterTitleFormProps) => {
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false); // State for toggling edit mode.
 
-  const toggleEdit = () => setIsEditing((current) => !current)
+  const toggleEdit = () => setIsEditing((current) => !current); // Function to toggle edit mode.
 
-  const router = useRouter()
+  const router = useRouter(); // Get the Next.js router.
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   })
 
-  const { isSubmitting, isValid } = form.formState
+  const { isSubmitting, isValid } = form.formState; // Get form state properties.
 
+  // Function to handle form submission.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}/chpaters/${chapterId}`, values)
-      toast.success('Chpaters updated successfully')
-      toggleEdit()
-      router.refresh()
+      await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values); // Send a PATCH request to update the chapter title.
+      toast.success('Chapter updated successfully'); // Display a success toast.
+      toggleEdit(); // Exit edit mode.
+      router.refresh(); // Refresh the router to reflect changes.
     } catch {
-      toast.error('Something went wrong')
+      toast.error('Something went wrong'); // Display an error toast if an error occurs.
     }
   }
 

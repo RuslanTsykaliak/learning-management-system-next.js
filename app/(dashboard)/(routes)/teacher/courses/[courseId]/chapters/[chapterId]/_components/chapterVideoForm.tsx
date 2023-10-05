@@ -13,35 +13,40 @@ import { Chapter, MuxData } from '@prisma/client'
 import { Button } from '@/components/ui/button'
 import { FileUpload } from '@/components/FileUpload'
 
+// Define a component called ChapterVideoForm with props of ChapterVideoFormProps.
+
 interface ChapterVideoFormProps {
-  initialData: Chapter & { muxData?: MuxData | null }
-  courseId: string;
-  chapterId: string;
+  initialData: Chapter & { muxData?: MuxData | null }; // Props include initial data for a chapter and optional MuxData.
+  courseId: string; // The ID of the course to which the chapter belongs.
+  chapterId: string; // The ID of the chapter being edited.
 }
 
+// Define a schema for form validation.
 const formSchema = z.object({
-  videoUrl: z.string().min(1),
+  videoUrl: z.string().min(1), // Validate the video URL field.
 })
 
+// Define the ChapterVideoForm component.
 export const ChapterVideoForm = ({
   initialData,
   courseId,
   chapterId,
 }: ChapterVideoFormProps) => {
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false); // State for toggling edit mode.
 
-  const toggleEdit = () => setIsEditing((current) => !current)
+  const toggleEdit = () => setIsEditing((current) => !current); // Function to toggle edit mode.
 
-  const router = useRouter()
+  const router = useRouter(); // Get the Next.js router.
 
+  // Function to handle form submission.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values)
-      toast.success('Chapter updated')
-      toggleEdit()
-      router.refresh()
+      await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values); // Send a PATCH request to update the chapter.
+      toast.success('Chapter updated'); // Display a success toast.
+      toggleEdit(); // Exit edit mode.
+      router.refresh(); // Refresh the router to reflect changes.
     } catch {
-      toast.error('Something went wrong')
+      toast.error('Something went wrong'); // Display an error toast if an error occurs.
     }
   }
 
@@ -55,14 +60,14 @@ export const ChapterVideoForm = ({
           )}
           {!isEditing && !initialData.videoUrl && (
             <>
-            <PlusCircle className='h-4 w-4 mr-2'/>
-            Add a video
+              <PlusCircle className='h-4 w-4 mr-2'/>
+              Add a video
             </>
           )}
           {!isEditing && initialData.videoUrl && (
             <>
-            <Pencil className='h-4 w-4 mr-2'/>
-            Edit video
+              <Pencil className='h-4 w-4 mr-2'/>
+              Edit video
             </>
           )}
         </Button>
@@ -75,7 +80,7 @@ export const ChapterVideoForm = ({
         ) : (
           <div className='relative aspect-video mt-2'>
             <MuxPlayer
-            playbackId={initialData?.muxData?.playbackId || ""}
+              playbackId={initialData?.muxData?.playbackId || ""}
             />
           </div>
         )
@@ -83,12 +88,12 @@ export const ChapterVideoForm = ({
       {isEditing && (
         <div>
           <FileUpload
-          endpoint='chapterVideo'
-          onChange={(url) => {
-            if (url) {
-            onSubmit({ videoUrl: url });
-            }
-          }}
+            endpoint='chapterVideo'
+            onChange={(url) => {
+              if (url) {
+                onSubmit({ videoUrl: url });
+              }
+            }}
           />
           <div className='text-xs text-muted-foreground mt-4'>
             Upload the video for this chapter

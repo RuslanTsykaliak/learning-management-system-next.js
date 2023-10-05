@@ -13,52 +13,60 @@ import { Grip, Pencil } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 
+// Define an interface for the ChaptersListProps.
 interface ChaptersListProps {
-  items: Chapter[]
-  onReorder: (updateData: { id: string; position: number }[]) => void
-  onEdit: (id: string) => void
+  items: Chapter[]; // An array of Chapter objects to be displayed.
+  onReorder: (updateData: { id: string; position: number }[]) => void; // Callback for reordering chapters.
+  onEdit: (id: string) => void; // Callback for editing a chapter.
 }
 
+// Define the ChaptersList component.
 export const ChaptersList = ({
   items,
   onReorder,
   onEdit,
 }: ChaptersListProps) => {
-  const [isMounted, setIsMounted] = useState(false)
-  const [chapters, setChapters] = useState(items)
+  const [isMounted, setIsMounted] = useState(false);
+  const [chapters, setChapters] = useState(items);
 
+  // Use an effect to set the component as mounted.
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
+    setIsMounted(true);
+  }, []);
 
+  // Use an effect to update the chapters when the 'items' prop changes.
   useEffect(() => {
-    setChapters(items)
-  }, [items])
+    setChapters(items);
+  }, [items]);
 
+  // Function to handle chapter reordering after a drag and drop operation.
   const onDragEnd = (result: DropResult) => {
-    if (!result.destination) return
+    if (!result.destination) return;
 
-    const items = Array.from(chapters)
-    const [reorderedItem] = items.splice(result.source.index, 1)
-    items.splice(result.destination.index, 0, reorderedItem)
+    const items = Array.from(chapters);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
 
-    const startIndex = Math.min(result.source.index, result.destination.index)
-    const endIndex = Math.max(result.source.index, result.destination.index)
+    const startIndex = Math.min(result.source.index, result.destination.index);
+    const endIndex = Math.max(result.source.index, result.destination.index);
 
-    const updatedChapters = items.slice(startIndex, endIndex + 1)
+    const updatedChapters = items.slice(startIndex, endIndex + 1);
 
-    setChapters(items)
+    setChapters(items);
 
+    // Create bulk update data for the reordering operation.
     const bulkUpdateData = updatedChapters.map((chapter) => ({
       id: chapter.id,
-      position: items.findIndex((item) => item.id === chapter.id)
-    }))
+      position: items.findIndex((item) => item.id === chapter.id),
+    }));
 
-    onReorder(bulkUpdateData)
-  }
+    // Invoke the 'onReorder' callback with the bulk update data.
+    onReorder(bulkUpdateData);
+  };
 
+  // If the component is not mounted yet, return null.
   if (!isMounted) {
-    return null
+    return null;
   }
 
   return (
@@ -121,5 +129,5 @@ export const ChaptersList = ({
         )}
       </Droppable>
     </DragDropContext>
-  )
-}
+  );
+};
