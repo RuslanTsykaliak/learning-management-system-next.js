@@ -44,6 +44,6 @@ npm i @clerk/nextjs @hello-pangea/dnd @hookform/resolvers @mux/mux-node @mux/mux
 
 ## Shadcn UI components
 ```
-npx shadcn-ui@latest add sheet form badge input command popover textarea dropdown-menu table
+npx shadcn-ui@latest add sheet form badge input command popover textarea dropdown-menu table card
 ```
  
