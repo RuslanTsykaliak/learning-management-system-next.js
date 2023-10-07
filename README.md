@@ -38,12 +38,50 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ----------------------------------------------------------------
 ## Installed Packages
 
+
 ```zsh
 npm i @clerk/nextjs @hello-pangea/dnd @hookform/resolvers @mux/mux-node @mux/mux-player-react @radix-ui/react-alert-dialog @radix-ui/react-checkbox @radix-ui/react-dropdown-menu @radix-ui/react-label @radix-ui/react-popover @radix-ui/react-progress @radix-ui/react-separator @radix-ui/react-slot @tanstack/react-table axios cmdk query-string react-confetti react-dropzone react-hook-form react-hot-toast react-icons react-quill recharts stripe @uploadthing/react zod zustand
 ```
 
 ## Shadcn UI components
+
+
 ```
-npx shadcn-ui@latest add sheet form badge input command popover textarea dropdown-menu table card
+npx shadcn-ui@latest add sheet form badge input command popover textarea dropdown-menu table card separator progress aler-dialog
 ```
  
+### Setup .env file
+
+
+```js
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=
+
+DATABASE_URL=
+
+UPLOADTHING_SECRET=
+UPLOADTHING_APP_ID=
+
+MUX_TOKEN_ID=
+MUX_TOKEN_SECRET=
+
+STRIPE_API_KEY=
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+STRIPE_WEBHOOK_SECRET=
+
+NEXT_PUBLIC_TEACHER_ID=
+```
+
+### Setup Prisma
+
+Add MySQL Database
+
+```shell
+npx prisma generate
+npx prisma db push
+
+```
