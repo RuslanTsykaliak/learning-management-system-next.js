@@ -1,5 +1,5 @@
+import { Course, Purchase } from '@prisma/client';
 import { db } from "@/lib/db";
-import { Course, Purchase } from "@/prisma/client"
 
 
 // Defining a custom type that combines Purchase and Course

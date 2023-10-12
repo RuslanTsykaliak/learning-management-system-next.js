@@ -7,7 +7,7 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 
 import { Button } from "@/components/ui/button"
-import { useConfettiStore } from "@/hooks/"
+import { useConfettiStore } from "@/hooks/useConfettiStore" 
 
 // Define the props for the CourseProgressButton component
 interface CourseProgressButtonProps {

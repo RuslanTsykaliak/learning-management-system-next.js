@@ -3,9 +3,9 @@ import { Chapter, Course, UserProgress } from '@prisma/client'
 import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
-import { CourseProgress } from "@/components/"
+import { CourseProgress } from "@/components/CourseProgress";
 
-import { CourseSidebarItem } from "./"
+import { CourseSidebarItem } from "./CourseSidebarItem";
 
 // This interface defines the props that are passed to the CourseSidebar component.
 interface CourseSidebarProps {
@@ -46,12 +46,14 @@ export const CourseSidebar = async ({
   // Render the CourseSidebar component.
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
+      {/* Course Header */}
       <div className="p-8 flex flex-col border-b">
         <h1 className="font-semibold">
           {course.title}
         </h1>
         {purchase && (
           <div className="mt-10">
+            {/* Display course progress if the user has purchased the course */}
             <CourseProgress
               variant="success"
               value={progressCount}
@@ -59,14 +61,18 @@ export const CourseSidebar = async ({
           </div>
         )}
       </div>
+
+      {/* List of Course Chapters */}
       <div className="flex flex-col w-full">
         {course.chapters.map((chapter) => (
           <CourseSidebarItem
             key={chapter.id}
             id={chapter.id}
             label={chapter.title}
+            // Check if the user has completed the chapter
             isCompleted={!!chapter.userProgress?.[0]?.isCompleted}
             courseId={course.id}
+            // Check if the chapter is locked (requires purchase)
             isLocked={!chapter.isFree && !purchase}
           />
         ))}

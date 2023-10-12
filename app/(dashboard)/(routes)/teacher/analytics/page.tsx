@@ -1,10 +1,10 @@
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-import { getAnalytics } from "@/actions/GetAnalytics";
+import { getAnalytics } from "@/actions/getAnalytics";
 
 import { DataCard } from "./_components/data-card";
-import { Chart } from "./_components/chart";
+import { Chart } from "./_components/Chart";
 
 // Define an AnalyticsPage component for displaying user-specific analytics data.
 const AnalyticsPage = async () => {
