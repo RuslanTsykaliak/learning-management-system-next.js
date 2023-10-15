@@ -76,11 +76,14 @@ export const CourseProgressButton = ({
       onClick={onClick}
       disabled={isLoading}
       type="button"
+      // Set the button variant based on whether the chapter is completed or not
       variant={isCompleted ? "outline" : "success"}
       className="w-full md:w-auto"
     >
+      {/* Display different labels based on the chapter's completion status */}
       {isCompleted ? "Not completed" : "Mark as complete"}
       <Icon className="h-4 w-4 ml-2" />
     </Button>
   )
+  
 }

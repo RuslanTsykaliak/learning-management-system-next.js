@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { Loader2, Lock } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
-import { useConfettiStore } from "@/hooks/"
+import { useConfettiStore } from '@/hooks/useConfettiStore' 
 
 // Define the props for the VideoPlayer component
 interface VideoPlayerProps {
