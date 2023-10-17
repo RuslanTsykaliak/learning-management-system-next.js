@@ -42,7 +42,7 @@ export const Categories = ({
         <CategoryItem
           key={item.id}
           label={item.name}
-          icon={iconMap[item.name]}
+          icon={iconMap[item.name]} // render the icon that is associated with the category name
           value={item.id}
         />
       ))}

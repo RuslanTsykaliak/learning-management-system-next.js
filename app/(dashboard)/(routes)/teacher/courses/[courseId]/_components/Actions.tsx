@@ -82,20 +82,19 @@ export const Actions = ({
     }
   };
 
-  // Render the Actions component.
   return (
     <div className="flex items-center gap-x-2">
       <Button
-        onClick={onClick}
-        disabled={disabled || isLoading}
-        variant='outline'
-        size='sm'
+        onClick={onClick} // Handle click event for toggling publication
+        disabled={disabled || isLoading} // Disable the button if requested or while loading
+        variant='outline' // Use an outlined button style
+        size='sm' // Set the button size to small
       >
-        {isPublished ? 'Unpublished' : 'Published'}
+        {isPublished ? 'Unpublished' : 'Published'} {/* Display 'Published' or 'Unpublished' based on the value of isPublished */}
       </Button>
-      <ConfirmModal onConfirm={onDelete}>
-        <Button size='sm' disabled={isLoading}>
-          <Trash className="h-4 w-4"/>
+      <ConfirmModal onConfirm={onDelete}> {/* Display a confirmation modal on button click with onDelete as the confirmation action */}
+        <Button size='sm' disabled={isLoading}> {/* Create a small button for triggering the modal */}
+          <Trash className="h-4 w-4" /> {/* Display a trash can icon */}
         </Button>
       </ConfirmModal>
     </div>

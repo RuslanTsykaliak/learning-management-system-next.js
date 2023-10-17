@@ -46,7 +46,7 @@ const ChapterIdPage = async ({
 
   // Determine if the chapter is locked and whether to mark it as complete.
   const isLocked = !chapter.isFree && !purchase;
-  const completeOnEnd = !!purchase && !userProgress?.isCompleted;
+  const completeOnEnd = !!purchase && !userProgress?.isCompleted; // The !! operator in TypeScript is a unary operator that converts its operand to a boolean value. If the operand is a boolean value, the !! operator returns that value unchanged. If the operand is any other type, the !! operator returns true if the operand is truthy and false if the operand is falsy.
 
   return ( 
     <div>
@@ -71,7 +71,7 @@ const ChapterIdPage = async ({
             title={chapter.title}
             courseId={params.courseId}
             nextChapterId={nextChapter?.id}
-            playbackId={muxData?.playbackId!} // Playback ID for the video
+            playbackId={muxData?.playbackId!} // The ! operator at the end of the line is a non-null assertion operator. It tells TypeScript that the muxData?.playbackId property is definitely not null or undefined, even though it is optional.
             isLocked={isLocked}
             completeOnEnd={completeOnEnd}
           />
@@ -110,7 +110,7 @@ const ChapterIdPage = async ({
                   // Display attachments as links to open in a new tab.
                   <a 
                     href={attachment.url}
-                    target="_blank"
+                    target="_blank" // open in a new tab or window
                     key={attachment.id}
                     className="flex items-center p-3 w-full bg-sky-200 border text-sky-700 rounded-md hover:underline"
                   >

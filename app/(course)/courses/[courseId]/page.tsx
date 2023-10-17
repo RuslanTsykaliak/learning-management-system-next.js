@@ -6,6 +6,7 @@ const CourseIdPage = async ({
 }: {
   params: { courseId: string; }
 }) => {
+  // Fetch course details, including published chapters
   const course = await db.course.findUnique({
     where: {
       id: params.courseId,
@@ -16,17 +17,19 @@ const CourseIdPage = async ({
           isPublished: true,
         },
         orderBy: {
-          position: 'asc'
+          position: "asc" // order the chapters by their position property in ascending order. 
         }
       }
     }
-  })
+  });
 
   if (!course) {
-    return redirect('/')
+    // If the course is not found, redirect to the homepage
+    return redirect("/");
   }
 
-  return redirect(`/course/${course.id}/chapters/${course.chapters[0].id}`)
+  // Redirect to the first chapter of the course
+  return redirect(`/courses/${course.id}/chapters/${course.chapters[0].id}`);
 }
 
-export default CourseIdPage
+export default CourseIdPage;

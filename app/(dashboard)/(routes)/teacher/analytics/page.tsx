@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 import { getAnalytics } from "@/actions/getAnalytics";
 
-import { DataCard } from "./_components/data-card";
+import { DataCard } from "./_components/DataCard";
 import { Chart } from "./_components/Chart";
 
 // Define an AnalyticsPage component for displaying user-specific analytics data.

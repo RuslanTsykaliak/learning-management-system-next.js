@@ -14,12 +14,14 @@ const CourseLayout = async ({
   children: React.ReactNode;
   params: { courseId: string };
 }) => {
-  const { userId } = auth()
+  const { userId } = auth();
 
   if (!userId) {
-    return redirect('/')
+    // If the user is not authenticated, redirect them to the homepage
+    return redirect("/");
   }
 
+  // Fetch course details, including chapters and user progress
   const course = await db.course.findUnique({
     where: {
       id: params.courseId,
@@ -41,26 +43,30 @@ const CourseLayout = async ({
         }
       },
     },
-  })
+  });
 
   if (!course) {
-    return redirect('/')
+    // If the course is not found, redirect to the homepage
+    return redirect("/");
   }
 
-  const progressCount = await getProgress(userId, course.id)
+  // Calculate the user's progress in the course
+  const progressCount = await getProgress(userId, course.id);
 
   return (
     <div className="h-full">
       <div className="h-[80px] md:pl-80 fixed inset-y-0 w-full z-50">
+        {/* Render the course navigation bar with progress count */}
         <CourseNavbar
-        course={course}
-        progressCount={progressCount}
+          course={course}
+          progressCount={progressCount}
         />
       </div>
       <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-50">
+        {/* Render the course sidebar with progress count */}
         <CourseSidebar
-        course={course}
-        progressCount={progressCount}
+          course={course}
+          progressCount={progressCount}
         />
       </div>
       <main className="md:pl-80 pt-[80px] h-full">
@@ -70,4 +76,4 @@ const CourseLayout = async ({
   )
 }
 
-export default CourseLayout
+export default CourseLayout;
