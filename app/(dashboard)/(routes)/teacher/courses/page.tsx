@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
 
-import { DataTable } from
-import { columns } from 
+import { DataTable } from "./_components/DataTable";
+import { columns } from "./_components/columns";
 
 // Define a Next.js page component for displaying a user's courses.
 const CoursesPage = async () => {
@@ -17,7 +17,7 @@ const CoursesPage = async () => {
   }
 
   // Fetch the user's courses, ordered by creation date
-  const courses = await db.courses.findMany({
+  const courses = await db.course.findMany({
     where: {
       userId,
     },

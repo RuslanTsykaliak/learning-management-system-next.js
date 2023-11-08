@@ -24,54 +24,68 @@ import { Textarea } from '@/components/ui/textarea'
 interface DescriptionFormProps {
   initialData: Course;
   courseId: string;
-}
+};
 
+// Define a form schema using the `zod` library to validate the description field.
 const formSchema = z.object({
   description: z.string().min(1, {
     message: "Description is required",
   }),
-})
+});
 
+// DescriptionForm component receives initial data and courseId as props.
 export const DescriptionForm = ({
   initialData,
-  courseId,
+  courseId
 }: DescriptionFormProps) => {
-  const [isEditing, setIsEditing] = useState(false)
+  // State to control whether the description is in editing mode.
+  const [isEditing, setIsEditing] = useState(false);
 
-  const toggleEdit = () => setIsEditing((current) => !current)
+  // Function to toggle the edit mode.
+  const toggleEdit = () => setIsEditing((current) => !current);
 
-  const router = useRouter()
+  // Next.js router instance for navigation.
+  const router = useRouter();
 
+  // Initialize a form using the zod schema and default values.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       description: initialData?.description || ""
     },
-  })
+  });
 
-  const { isSubmitting, isValid } = form.formState
+  // Extract formState properties for convenience.
+  const { isSubmitting, isValid } = form.formState;
 
+  // Function to handle form submission.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}`, values)
-      toast.success('Course updated')
-      toggleEdit()
-      router.refresh()
+      // Make a PATCH request to update the course description.
+      await axios.patch(`/api/courses/${courseId}`, values);
+      // Display a success toast notification.
+      toast.success("Course updated");
+      // Toggle off the edit mode.
+      toggleEdit();
+      // Refresh the router to update the page.
+      router.refresh();
     } catch {
-      toast.error('Something went wrong')
+      // Display an error toast in case of an error.
+      toast.error("Something went wrong");
     }
   }
 
   return (
-    <div className='mt-6 border bg-slate-100 rounded-md p-4'>
-      <div className='font-medium flex items-center justify-between'>
+    <div className="mt-6 border bg-slate-100 rounded-md p-4">
+      <div className="font-medium flex items-center justify between">
         Course description
+        {/* Button to toggle the edit mode */}
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
-              <Pencil className='h-4 w-4 mr-2' />
+              <Pencil className="h-4 w-4 mr-2" />
               Edit description
             </>
           )}
@@ -79,9 +93,10 @@ export const DescriptionForm = ({
       </div>
       {!isEditing && (
         <p className={cn(
-          'text-sm mt-2',
+          "text-sm mt-2",
           !initialData.description && "text-slate-500 italic"
         )}>
+          {/* Display the course description or a message if it's empty */}
           {initialData.description || "No description"}
         </p>
       )}
@@ -89,11 +104,12 @@ export const DescriptionForm = ({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className='space-y-4 mt-4'
+            className="space-y-4 mt-4"
           >
             <FormField
               control={form.control}
-              name='description'
+              name="description"
+              // Render the form field using Formik components.
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -107,10 +123,11 @@ export const DescriptionForm = ({
                 </FormItem>
               )}
             />
-            <div className='flex items-center gap-x-2'>
+            <div className="flex items-center gap-x-2">
+              {/* Button to save the updated description */}
               <Button
                 disabled={!isValid || isSubmitting}
-                type='submit'
+                type="submit"
               >
                 Save
               </Button>

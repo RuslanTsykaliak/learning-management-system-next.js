@@ -5,13 +5,13 @@ import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 
 import { db } from "@/lib/db";
 import { IconBadge } from '@/components/IconBadge'
-import { Banner } from '@/components/banner'
+import { Banner } from '@/components/Banner'
 
-import { ChapterTitleForm } from "./_components/chapterTitleForm";
-import { ChapterDescriptionForm } from "./_components/chapterDescriptionForm";
-import { ChapterAccessForm } from "./_components/chapterAccessForm";
-import { ChapterVideoForm } from "./_components/chapterVideoForm";
-import { ChapterActions } from "./_components/chapterActions";
+import { ChapterTitleForm } from "./_components/ChapterTitleForm";
+import { ChapterDescriptionForm } from "./_components/ChapterDescriptionForm";
+import { ChapterAccessForm } from "./_components/ChapterAccessForm";
+import { ChapterVideoForm } from "./_components/ChapterVideoForm";
+import { ChapterActions } from "./_components/ChapterActions";
 
 // Define a Next.js page component for handling a specific chapter's page.
 const ChapterIdPage = async ({
@@ -94,7 +94,7 @@ const ChapterIdPage = async ({
                 disabled={!isComplete}
                 courseId={params.courseId}
                 chapterId={params.chapterId}
-                isPublished={params.isPublished}
+                isPublished={chapter.isPublished}
               />
             </div>
           </div>

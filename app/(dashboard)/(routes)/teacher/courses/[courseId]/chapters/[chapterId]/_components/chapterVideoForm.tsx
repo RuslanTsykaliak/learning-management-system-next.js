@@ -52,30 +52,32 @@ export const ChapterVideoForm = ({
 
   return (
     <div className='mt-6 border bg-slate-100 rounded-md p4'>
-      <div className='font-medium flex items-center justify-between'>
+      <div className='font-medium flex items-center justify between'>
         Chapter video
+        {/* Button to toggle the edit mode */}
         <Button onClick={toggleEdit} variant='ghost'>
           {isEditing && (
             <>Cancel</>
           )}
           {!isEditing && !initialData.videoUrl && (
             <>
-              <PlusCircle className='h-4 w-4 mr-2'/>
+              <PlusCircle className='h-4 w-4 mr-2' />
               Add a video
             </>
           )}
           {!isEditing && initialData.videoUrl && (
             <>
-              <Pencil className='h-4 w-4 mr-2'/>
+              <Pencil className='h-4 w-4 mr-2' />
               Edit video
             </>
           )}
         </Button>
       </div>
       {!isEditing && (
+        // Check if not in edit mode and no initial video data
         !initialData.videoUrl ? (
           <div className='flex items-center justify-center h-60 bg-slate-200 rounded-md'>
-            <Video className='h-10 w-10 text-slate-500'/>
+            <Video className='h-10 w-10 text-slate-500' />
           </div>
         ) : (
           <div className='relative aspect-video mt-2'>
@@ -86,6 +88,7 @@ export const ChapterVideoForm = ({
         )
       )}
       {isEditing && (
+        // Render file upload and description in edit mode
         <div>
           <FileUpload
             endpoint='chapterVideo'
@@ -101,6 +104,7 @@ export const ChapterVideoForm = ({
         </div>
       )}
       {initialData.videoUrl && !isEditing && (
+        // Display a message when video processing is required
         <div className='text-xs text-muted-foreground mt-2'>
           Videos can take a few minutes to process. Refresh the page if the video does not appear.
         </div>

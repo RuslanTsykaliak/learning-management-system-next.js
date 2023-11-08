@@ -69,17 +69,22 @@ export const ChapterActions = ({
 
   return (
     <div className="flex items-center gap-x-2">
+      {/* Publish/Unpublish button */}
       <Button
         onClick={onClick}
         disabled={disabled || isLoading}
         variant='outline'
         size='sm'
       >
+        {/* Display "Publish" or "Unpublish" based on the 'isPublished' status */}
         {isPublished ? "Unpublish" : "Publish"}
       </Button>
+
+      {/* Delete button with a confirmation modal */}
       <ConfirmModal onConfirm={onDelete}>
         <Button size='sm' disabled={isLoading}>
-          <Trash className="h-4 w-4"/>
+          {/* Trash icon for deleting */}
+          <Trash className="h-4 w-4" />
         </Button>
       </ConfirmModal>
     </div>

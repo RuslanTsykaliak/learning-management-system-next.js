@@ -8,7 +8,7 @@ import { Pencil } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { Course } from '@prisma/client'@clerk/nextjs
+import { Course } from '@prisma/client'
 
 import {
   Form,
@@ -69,15 +69,16 @@ export const PriceForm = ({
   };
 
   return (
-    <div className='mt-6 border bg-slate-100 rounded-md p-4'>
-      <div className='font-medium flex items-center justify-between'>
+    <div className="mt-6 border bg-slate-100 rounded-md p-4">
+      <div className="font-medium flex items-center justify-between">
         Course price
-        <Button onClick={toggleEdit} variant='ghost'>
+        {/* Button to toggle the edit mode */}
+        <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
-              <Pencil className='h-4 w-4 mr-2' />
+                <Pencil className="h-4 w-4 mr-2" />
               Edit price
             </>
           )}
@@ -85,12 +86,13 @@ export const PriceForm = ({
       </div>
       {!isEditing && (
         <p className={cn(
-          'text-sm mt-2',
-          !initialData.price && 'text-slate-500 italic'
+          "text-sm mt-2",
+          !initialData.price && "text-slate-500 italic"
         )}>
+          {/* Display the course price or a message if it's empty */}
           {initialData.price
-            ? formatPrice(initialData.price) // Format the price using 'formatPrice' function
-            : 'No price'
+            ? formatPrice(initialData.price)
+            : "No price"
           }
         </p>
       )}
@@ -98,19 +100,20 @@ export const PriceForm = ({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className='space-y-4 mt-4'
+            className="space-y-4 mt-4"
           >
             <FormField
               control={form.control}
-              name='price'
+              name="price"
+              // Render the form field using Formik components.
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <Input
-                      type='number'
-                      step='0.01'
+                      type="number"
+                      step="0.01"
                       disabled={isSubmitting}
-                      placeholder='Set a price for your course'
+                      placeholder="Set a price for your course"
                       {...field}
                     />
                   </FormControl>
@@ -118,10 +121,11 @@ export const PriceForm = ({
                 </FormItem>
               )}
             />
-            <div className='flex items-center gap-x-2'>
+            <div className="flex items-center gap-x-2">
+              {/* Button to save the updated price */}
               <Button
                 disabled={!isValid || isSubmitting}
-                type='submit'
+                type="submit"
               >
                 Save
               </Button>
@@ -130,5 +134,5 @@ export const PriceForm = ({
         </Form>
       )}
     </div>
-  );
+  )
 }

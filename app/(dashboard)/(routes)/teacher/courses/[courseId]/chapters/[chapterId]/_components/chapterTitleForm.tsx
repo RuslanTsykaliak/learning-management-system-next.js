@@ -68,6 +68,7 @@ export const ChapterTitleForm = ({
     <div className='mt-6 border bg-slate-100 rounded-md p-4'>
       <div className='font-medium flex items-center justify-between'>
         Chapter title
+        {/* Button to toggle the edit mode */}
         <Button onClick={toggleEdit} variant='ghost'>
           {isEditing ? (
             <>Cancel</>
@@ -81,6 +82,7 @@ export const ChapterTitleForm = ({
       </div>
       {!isEditing && (
         <p className='text-sm mt-2'>
+          {/* Display the current chapter title */}
           {initialData.title}
         </p>
       )}
@@ -96,6 +98,7 @@ export const ChapterTitleForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
+                    {/* Use an Input component for editing the title */}
                     <Input
                       disabled={isSubmitting}
                       placeholder="e.g. 'Introduction to the course'"
@@ -107,6 +110,7 @@ export const ChapterTitleForm = ({
               )}
             />
             <div className='flex items-center gap-x-2'>
+              {/* Button to save the updated title */}
               <Button
                 disabled={!isValid || isSubmitting}
                 type='submit'

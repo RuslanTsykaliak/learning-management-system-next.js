@@ -19,8 +19,8 @@ import {
 } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { Editor } from '@/components/editor'
-import { Preview } from '@/components/preview'
+import { Editor } from '@/components/Editor'
+import { Preview } from '@/components/Preview'
 
 // Define an interface for the ChapterDescriptionFormProps.
 interface ChapterDescriptionFormProps {
@@ -71,6 +71,7 @@ export const ChapterDescriptionForm = ({
     <div className='mt-6 border bg-slate-100 rounded-md p-4'>
       <div className='font-medium flex items-center justify-between'>
         Chapter description
+        {/* Button to toggle the edit mode */}
         <Button onClick={toggleEdit} variant='ghost'>
           {isEditing ? (
             <>Cancel</>
@@ -87,6 +88,7 @@ export const ChapterDescriptionForm = ({
           'text-sm mt-2',
           !initialData.description && 'text-slate-500 italic'
         )}>
+          {/* Display the chapter description or a message if it's empty */}
           {!initialData.description && 'No description'}
           {initialData.description && (
             <Preview
@@ -107,6 +109,7 @@ export const ChapterDescriptionForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
+                    {/* Use an Editor component for editing the description */}
                     <Editor
                       {...field}
                     />
@@ -116,6 +119,7 @@ export const ChapterDescriptionForm = ({
               )}
             />
             <div className='flex items-center gap-x-2'>
+              {/* Button to save the updated description */}
               <Button
                 disabled={!isValid || isSubmitting}
                 type='submit'

@@ -3,17 +3,17 @@ import { redirect } from "next/navigation";
 import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-react";
 
 import { db } from "@/lib/db";
-import { IconBadge } from "@/components/icon-badge";
-import { Banner } from "@/components/banner";
+import { IconBadge } from "@/components/IconBadge";
+import { Banner } from "@/components/Banner";
 
-import { TitleForm } from "./_components/title-form";
-import { DescriptionForm } from "./_components/description-form";
-import { ImageForm } from "./_components/image-form";
-import { CategoryForm } from "./_components/category-form";
-import { PriceForm } from "./_components/price-form";
-import { AttachmentForm } from "./_components/attachment-form";
-import { ChaptersForm } from "./_components/chapters-form";
-import { Actions } from "./_components/actions";
+import { TitleForm } from "./_components/TitleForm"
+import { DescriptionForm } from "./_components/DescriptionForm";
+import { ImageForm } from "./_components/ImageForm";
+import { CategoryForm } from "./_components/CategoryForm";
+import { PriceForm } from "./_components/PriceForm";
+import { AttachmentForm } from "./_components/AttachmentForm";
+import { ChaptersForm } from "./_components/ChaptersForm";
+import { Actions } from "./_components/Actions";
 
 // Define a Next.js page component for handling a specific course's page.
 const CourseIdPage = async ({

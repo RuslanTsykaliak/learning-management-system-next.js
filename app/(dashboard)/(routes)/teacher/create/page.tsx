@@ -58,20 +58,25 @@ const CreatePage = () => {
   return (
     <div className='max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6'>
       <div>
+        {/* Display the course title heading */}
         <h1 className='text-2xl'>
           Name your course
         </h1>
+        {/* Provide a description for naming the course */}
         <p className='text-sm text-slate-600'>
           What would you like to name your course? Don&apos;t worry, you can change this later.
         </p>
+        {/* Define a form for course naming */}
         <Form {...form}>
           <form
+            // Handle form submission
             onSubmit={form.handleSubmit(onSubmit)}
             className='space-y-8 mt-8'
           >
             <FormField
               control={form.control}
               name='title'
+              // Render the course title input field
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -79,6 +84,7 @@ const CreatePage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
+                      // Disable input field while submitting
                       disabled={isSubmitting}
                       placeholder="e.g. 'Advanced web development'"
                       {...field}
@@ -93,6 +99,7 @@ const CreatePage = () => {
             />
             <div className='flex items-center gap-x-2'>
               <Link href='/'>
+                {/* Button to cancel course creation */}
                 <Button
                   type='button'
                   variant='ghost'
@@ -102,6 +109,7 @@ const CreatePage = () => {
               </Link>
               {/* The || (OR) operator will always return the first true value if either of its operands is true,
                  or it will return false if both operands are falsy. */}
+              {/* Button to continue course creation, disabled conditionally */}
               <Button
                 type='submit'
                 disabled={!isValid || isSubmitting}
