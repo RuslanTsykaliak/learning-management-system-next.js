@@ -4,7 +4,7 @@ import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-reac
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
-import { Banner } from "@/components/banner";
+import { Banner } from "@/components/Banner";
 
 import { TitleForm } from "./_components/title-form";
 import { DescriptionForm } from "./_components/description-form";
