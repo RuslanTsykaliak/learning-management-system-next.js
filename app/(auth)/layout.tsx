@@ -1,5 +1,3 @@
-// A React functional component `AuthLayout` for creating a common layout for authentication-related pages.
-
 const AuthLayout = ({
   children
 }: {
@@ -11,5 +9,5 @@ const AuthLayout = ({
     </div>
    );
 }
-
-export default AuthLayout
+ 
+export default AuthLayout;

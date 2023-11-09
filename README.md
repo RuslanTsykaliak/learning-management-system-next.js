@@ -70,10 +70,10 @@ MUX_TOKEN_ID=
 MUX_TOKEN_SECRET=
 
 STRIPE_API_KEY=
-NEXT_PUBLIC_APP_URL=http://localhost:3000
 STRIPE_WEBHOOK_SECRET=
 
 NEXT_PUBLIC_TEACHER_ID=
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
 ### Setup Prisma
@@ -84,6 +84,12 @@ Add MySQL Database
 npx prisma generate
 npx prisma db push
 
+```
+
+# Script
+```
+cd script
+node seed.ts
 ```
 
 Key Features:

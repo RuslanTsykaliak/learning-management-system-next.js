@@ -1,136 +1,123 @@
-// Defines a Prisma schema using Prisma's schema language in a file named schema.prisma.
-// This schema defines the structure of database tables and their relationships for a web application.
-
-// Define a data source named 'db' with MySQL as the provider, using the DATABASE_URL from environment variables.
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
-// Define a generator named 'client' for Prisma client code generation with preview features.
 generator client {
   provider = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
-// Define a model named 'Course' representing a course in the application.
 model Course {
-  id String @id @default(uuid()) // A unique identifier for the course.
-  userId String // The user ID of the course creator.
-  title String @db.Text // The title of the course, stored as text.
-  description String? @db.Text // The optional description of the course.
-  imageUrl String? @db.Text // The URL of the course image.
-  price Float? // The price of the course.
-  isPublished Boolean @default(false) // Indicates whether the course is published.
+  id String @id @default(uuid())
+  userId String
+  title String @db.Text
+  description String? @db.Text
+  imageUrl String? @db.Text
+  price Float?
+  isPublished Boolean @default(false)
 
-  categoryId String? // The ID of the category to which the course belongs.
-  category Category? @relation(fields: [categoryId], references: [id]) // Defines a relation to the Category model.
+  categoryId String?
+  category Category? @relation(fields: [categoryId], references: [id])
 
-  chapters Chapter[] // An array of chapters associated with the course.
-  attachments Attachment[] // An array of attachments associated with the course.
-  purchases Purchase[] // An array of purchases made for the course.
+  chapters Chapter[]
+  attachments Attachment[]
+  purchases Purchase[]
 
-  createdAt DateTime @default(now()) // Timestamp for creation.
-  updatedAt DateTime @updatedAt // Timestamp for the last update.
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([categoryId]) // Defines an index on the 'categoryId' field.
-  @@fulltext([title]) // Defines full-text search on the 'title' field.
+  @@index([categoryId])
+  @@fulltext([title])
 }
 
-// Define a model named 'Category' representing a category for courses.
 model Category {
-  id String @id @default(uuid()) // A unique identifier for the category.
-  name String @unique // The unique name of the category.
-  courses Course[] // An array of courses belonging to the category.
+  id String @id @default(uuid())
+  name String @unique
+  courses Course[]
 }
 
-// Define a model named 'Attachment' representing an attachment associated with a course.
 model Attachment {
-  id String @id @default(uuid()) // A unique identifier for the attachment.
-  name String // The name of the attachment.
-  url String @db.Text // The URL of the attachment.
+  id String @id @default(uuid())
+  name String
+  url String @db.Text
 
-  courseId String // The ID of the course to which the attachment belongs.
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade) // Defines a relation to the Course model.
+  courseId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now()) // Timestamp for creation.
-  updatedAt DateTime @updatedAt // Timestamp for the last update.
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([courseId]) // Defines an index on the 'courseId' field.
+  @@index([courseId])
 }
 
-// Define a model named 'Chapter' representing a chapter within a course.
 model Chapter {
-  id String @id @default(uuid()) // A unique identifier for the chapter.
-  title String // The title of the chapter.
-  description String? @db.Text // The optional description of the chapter.
-  videoUrl String? @db.Text // The URL of the chapter's video.
-  position Int // The position of the chapter within the course.
-  isPublished Boolean @default(false) // Indicates whether the chapter is published.
-  isFree Boolean @default(false) // Indicates whether the chapter is free.
+  id String @id @default(uuid())
+  title String
+  description String? @db.Text
+  videoUrl String? @db.Text
+  position Int
+  isPublished Boolean @default(false)
+  isFree Boolean @default(false)
 
-  muxData MuxData? // Defines a relation to the MuxData model.
+  muxData MuxData?
 
-  courseId String // The ID of the course to which the chapter belongs.
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade) // Defines a relation to the Course model.
+  courseId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  userProgress UserProgress[] // An array of user progress records for the chapter.
+  userProgress UserProgress[]
 
-  createdAt DateTime @default(now()) // Timestamp for creation.
-  updatedAt DateTime @updatedAt // Timestamp for the last update.
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([courseId]) // Defines an index on the 'courseId' field.
+  @@index([courseId])
 }
 
-// Define a model named 'MuxData' representing data associated with Mux video assets.
 model MuxData {
-  id String @id @default(uuid()) // A unique identifier for the MuxData record.
-  assetId String // The asset ID associated with Mux.
-  playbackId String? // The playback ID associated with Mux.
+  id String @id @default(uuid())
+  assetId String
+  playbackId String?
 
-  chapterId String @unique // The unique ID of the chapter associated with this MuxData.
-  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade) // Defines a relation to the Chapter model.
+  chapterId String @unique
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 }
 
-// Define a model named 'UserProgress' representing user progress records for chapters.
 model UserProgress {
-  id String @id @default(uuid()) // A unique identifier for the user progress record.
-  userId String // The user ID of the user making progress.
+  id String @id @default(uuid())
+  userId String
 
-  chapterId String // The ID of the chapter for which progress is recorded.
-  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade) // Defines a relation to the Chapter model.
+  chapterId String
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
-  isCompleted Boolean @default(false) // Indicates whether the chapter is completed.
+  isCompleted Boolean @default(false)
 
-  createdAt DateTime @default(now()) // Timestamp for creation.
-  updatedAt DateTime @updatedAt // Timestamp for the last update.
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([chapterId]) // Defines an index on the 'chapterId' field.
-  @@unique([userId, chapterId]) // Ensures uniqueness of (userId, chapterId) pairs.
+  @@index([chapterId])
+  @@unique([userId, chapterId])
 }
 
-// Define a model named 'Purchase' representing purchase records for courses.
 model Purchase {
-  id String @id @default(uuid()) // A unique identifier for the purchase record.
-  userId String // The user ID of the user making the purchase.
+  id String @id @default(uuid())
+  userId String
 
-  courseId String // The ID of the course that was purchased.
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade) // Defines a relation to the Course model.
+  courseId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now()) // Timestamp for creation.
-  updatedAt DateTime @updatedAt() // Timestamp for the last update.
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
 
-  @@unique([userId, courseId]) // Ensures uniqueness of (userId, courseId) pairs.
-  @@index([courseId]) // Defines an index on the 'courseId' field.
+  @@unique([userId, courseId])
+  @@index([courseId])
 }
 
-// Define a model named 'StripeCustomer' representing Stripe customer information.
 model StripeCustomer {
-  id String @id @default(uuid()) // A unique identifier for the Stripe customer record.
-  userId String @unique // The unique user ID associated with the Stripe customer.
-  stripeCustomerId String @unique // The unique Stripe customer ID.
+  id String @id @default(uuid())
+  userId String @unique
+  stripeCustomerId String @unique
 
-  createdAt DateTime @default(now()) // Timestamp for creation.
-  updatedAt DateTime @updatedAt // Timestamp for the last update.
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -3,33 +3,29 @@ import { redirect } from "next/navigation";
 import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-react";
 
 import { db } from "@/lib/db";
-import { IconBadge } from "@/components/IconBadge";
-import { Banner } from "@/components/Banner";
+import { IconBadge } from "@/components/icon-badge";
+import { Banner } from "@/components/banner";
 
-import { TitleForm } from "./_components/TitleForm"
-import { DescriptionForm } from "./_components/DescriptionForm";
-import { ImageForm } from "./_components/ImageForm";
-import { CategoryForm } from "./_components/CategoryForm";
-import { PriceForm } from "./_components/PriceForm";
-import { AttachmentForm } from "./_components/AttachmentForm";
-import { ChaptersForm } from "./_components/ChaptersForm";
-import { Actions } from "./_components/Actions";
+import { TitleForm } from "./_components/title-form";
+import { DescriptionForm } from "./_components/description-form";
+import { ImageForm } from "./_components/image-form";
+import { CategoryForm } from "./_components/category-form";
+import { PriceForm } from "./_components/price-form";
+import { AttachmentForm } from "./_components/attachment-form";
+import { ChaptersForm } from "./_components/chapters-form";
+import { Actions } from "./_components/actions";
 
-// Define a Next.js page component for handling a specific course's page.
 const CourseIdPage = async ({
   params
 }: {
   params: { courseId: string }
 }) => {
-  // Get the user's ID from the authentication system
   const { userId } = auth();
 
-  // If the user is not authenticated, redirect them to the homepage
   if (!userId) {
-    return redirect('/');
+    return redirect("/");
   }
 
-  // Fetch information about the course, including chapters and attachments
   const course = await db.course.findUnique({
     where: {
       id: params.courseId,
@@ -38,30 +34,27 @@ const CourseIdPage = async ({
     include: {
       chapters: {
         orderBy: {
-          position: 'asc',
+          position: "asc",
         },
       },
       attachments: {
         orderBy: {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
       },
     },
   });
 
-  // Fetch all categories
   const categories = await db.category.findMany({
     orderBy: {
-      name: 'asc',
+      name: "asc",
     },
   });
 
-  // If the course doesn't exist, redirect the user to the homepage
   if (!course) {
-    return redirect('/');
+    return redirect("/");
   }
 
-  // Define an array of required fields and calculate the completion status
   const requiredFields = [
     course.title,
     course.description,
@@ -72,21 +65,17 @@ const CourseIdPage = async ({
   ];
 
   const totalFields = requiredFields.length;
-  // Create a new array to only include required fields that are true
   const completedFields = requiredFields.filter(Boolean).length;
 
-  // Generate completion text based on completed and total fields
   const completionText = `(${completedFields}/${totalFields})`;
 
-  // Determine if all required fields are completed
   const isComplete = requiredFields.every(Boolean);
 
   return (
     <>
-      {/* Display a banner if the course is unpublished */}
       {!course.isPublished && (
         <Banner
-          label='This course is unpublished. It will not be visible to the students.'
+          label="This course is unpublished. It will not be visible to the students."
         />
       )}
       <div className="p-6">
@@ -95,12 +84,10 @@ const CourseIdPage = async ({
             <h1 className="text-2xl font-medium">
               Course setup
             </h1>
-            {/* Display completion status */}
             <span className="text-sm text-slate-700">
               Complete all fields {completionText}
             </span>
           </div>
-          {/* Render Actions component */}
           <Actions
             disabled={!isComplete}
             courseId={params.courseId}
@@ -115,7 +102,6 @@ const CourseIdPage = async ({
                 Customize your course
               </h2>
             </div>
-            {/* Render TitleForm, DescriptionForm, ImageForm, and CategoryForm components */}
             <TitleForm
               initialData={course}
               courseId={course.id}
@@ -145,7 +131,6 @@ const CourseIdPage = async ({
                   Course chapters
                 </h2>
               </div>
-              {/* Render ChaptersForm component */}
               <ChaptersForm
                 initialData={course}
                 courseId={course.id}
@@ -158,7 +143,6 @@ const CourseIdPage = async ({
                   Sell your course
                 </h2>
               </div>
-              {/* Render PriceForm component */}
               <PriceForm
                 initialData={course}
                 courseId={course.id}
@@ -171,7 +155,6 @@ const CourseIdPage = async ({
                   Resources & Attachments
                 </h2>
               </div>
-              {/* Render AttachmentForm component */}
               <AttachmentForm
                 initialData={course}
                 courseId={course.id}
@@ -181,7 +164,7 @@ const CourseIdPage = async ({
         </div>
       </div>
     </>
-  )
+   );
 }
-
+ 
 export default CourseIdPage;
