@@ -6,7 +6,7 @@ import { SearchInput } from "@/components/search-input";
 import { getCourses } from "@/actions/get-courses";
 import { CoursesList } from "@/components/courses-list";
 
-import { Categories } from "./_components/categories";
+import { Categories } from "./_components/categories.tsx";
 
 interface SearchPageProps {
   searchParams: {
