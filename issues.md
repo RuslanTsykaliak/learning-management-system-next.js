@@ -13,3 +13,4 @@ If you remove the ^ from your package.json, delete your lock file, run install a
 
 - error: Module not found: Can't resolve '@/components/editor'
 Change name to Upercase
+Editor, Preview, Categories, Actions, Navbar, Sidebar,
