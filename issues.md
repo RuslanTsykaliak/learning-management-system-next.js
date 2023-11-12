@@ -9,3 +9,7 @@ Fix:
 
 If you remove the ^ from your package.json, delete your lock file, run install again and stick with v1.0.4 for now the problem is solved.
 
+# Uploading to Vercel
+
+- error: Module not found: Can't resolve '@/components/editor'
+Change name to Upercase
